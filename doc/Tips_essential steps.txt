@@ -1,0 +1,100 @@
+
+---------------
+[Part One] Key
+---------------
+# Generate key
+1. Launch 'git bash'
+2. 'ssh-keygen'
+	Generating public/private rsa key pair.
+	Enter file in which to save the key (/c/Users/cat/.ssh/id_rsa): # press enter to use the default
+	Created directory '/c/Users/cat/.ssh'.
+	Enter passphrase (empty for no passphrase):   # enter password of the key
+3. Use Windows File Explorer 
+	Go to 'c:/users/cat/.ssh'
+	Check two files: 'id_rsa.pub' (public key)
+					 and 'id_rsa' (private key)
+					 
+# Add key to bitbucket.org			
+1. Login to Bitbucket
+2. Go to 'profile and settings' -> 'personal settings' -> 'SSH keys' -> 'add key'
+3. Use Notepad++ to open the public key ('c:/users/cat/.ssh/id_rsa.pub')
+4. In Notepad++, select all and copy
+5. Paste in Bitbucket
+6. Add label (description)
+
+# Register and test key
+1. In git bash, launch ssh-agent: 'eval $(ssh-agent)'
+	$ eval $(ssh-agent)
+	Agent pid 1545
+2. Add key to SSH: 'ssh-add'
+	$ ssh-add
+	Enter passphrase for /c/Users/cat/.ssh/id_rsa:		# password of the generated key
+	Identity added: /c/Users/cat/.ssh/id_rsa (cat@cat-t530)
+3. Test key with Bitbucket: 'ssh -T git@bitbucket.org'
+	$ ssh -T git@bitbucket.org
+	The authenticity of host 'bitbucket.org (18.205.93.2)' can't be established.
+	RSA key fingerprint is SHA256:zzXQOXSRBEiUtuE8AikJYKwbHaxvSc0ojez9YXaGp1A.
+	Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+	Please type 'yes', 'no' or the fingerprint: Yes
+	Warning: Permanently added 'bitbucket.org,18.205.93.2' (RSA) to the list of known hosts.
+	logged in as ddcddc_001
+
+	You can use git or hg to connect to Bitbucket. Shell access is disabled
+
+-------------------------------
+[Part Two] Repo init and clone
+-------------------------------
+# Create local repo
+1. Create a folder for local repo
+2. Launch 'git-bash'
+3. Change path to local repo ('pwd' to check current working path)
+4. Init local repo: 'git init'
+
+# Config connection with remote repo
+1. Add remote repo: 'git remote add -m master rp1 git@bitbucket.org:ddcddc_001/repo1' # '-m master' defines branch name
+2. Check connection with remote repo: 'git remote -v'
+	$ git remote -v
+	rp1     git@bitbucket.org:ddcddc_001/repo1 (fetch)
+	rp1     git@bitbucket.org:ddcddc_001/repo1 (push)
+
+# Clone remote repo
+1. 'git clone git@bitbucket.org:ddcddc_001/repo1' 
+   Command format: git clone git@<domain of server>:<bitbucket username>/<bitbucket repo name>
+
+-------------------------------
+[Part Three] Pull and push
+-------------------------------
+# Define user.email and user.name
+  'git config --global user.email "you@example.com"'
+  'git config --global user.name "Your Name"'
+
+# Pull 
+1. Confirm the current path is repo1
+2. Pull: 'git pull'
+
+# Push
+1. Confirm the current path is repo1
+2. Add file to local repo: 'git add <filename>'
+3. Commit: 'git commit -m "<comments of this push>"
+4. Push: 'git push'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
