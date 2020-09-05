@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(shinybusy)
 library(DT)
 # library(shinydashboardPlus)
 library(ggplot2)
@@ -50,7 +51,10 @@ body <- dashboardBody(
               .main-header.logo {width: 300px}"
             )
           ),
-  
+          
+          add_busy_bar(timeout =  1000, color = "yellow", height = "8px"),
+          add_busy_spinner(timeout = 1000, spin = "fading-circle",
+                           position = "top-left", color = "yellow"),
           tabItems(
             
             # Tab content [functiona]:
@@ -65,7 +69,10 @@ body <- dashboardBody(
                       box(
                           width = 12,
                           id = "panel_c1r1",
-                          title = "Selection", status = "primary", solidHeader = TRUE,
+                          # title = "Selection", 
+                          title =  textOutput("title_panel_selection"),
+                          status = "primary", 
+                          solidHeader = TRUE,
                           # collapsible = TRUE,
                           style = "padding: 8px; margin: 0px; height: 90vh; background-color: #fafafa",
                           
@@ -98,7 +105,10 @@ body <- dashboardBody(
                       box(
                         width = 12,
                         id = "panel_c2r1",
-                        title = "Output", status = "success", solidHeader = TRUE,
+                        # title = "Output", 
+                        title = textOutput("title_panel_plot"),
+                        status = "success", 
+                        solidHeader = TRUE,
                         # collapsible = TRUE,
                         style = "padding: 8px; margin: 0px; height: 90vh; background-color: #fafafa",
                         
@@ -160,6 +170,8 @@ server <- function(input, output, session) {
   
   # [Box_Selection] ###############
   
+  output$title_panel_selection <- renderText('Selection')
+  
   output$table_sele_1 <- DT::renderDataTable({
     DT::datatable(dfSel, options = list(pageLength = 15))
   })
@@ -181,6 +193,10 @@ server <- function(input, output, session) {
   
   # [Button_Search]:
   observeEvent(input$btnSearch,{
+    ### TEST ###
+    Sys.sleep(5)
+    output$title_panel_selection <- renderText("Selection - SQL Queyies OK")
+    
     selectedRowsTab1 <- input$table_sele_1_rows_selected
     cat("[1:",selectedRowsTab1,"]")
     selectedRowsTab2 <- input$table_sele_2_rows_selected
@@ -194,6 +210,7 @@ server <- function(input, output, session) {
   
 
   # [Box_Plot] ###############
+  output$title_panel_plot <- renderText("Plot")
   
   observeEvent(input$btnPlot,{
     selectedRowsTab1 <- input$table_sele_1_rows_selected
