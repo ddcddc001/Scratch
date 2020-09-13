@@ -46,24 +46,24 @@ df_ent1_ent2 <- merge(df_p_sele_ent1, df_p_sele_ent2, by='feature2')
 df_ent1_only <- df_p_sele_ent1[!(df_p_sele_ent1$feature2 %in% df_ent1_ent2$feature2),]
 df_ent2_only <- df_p_sele_ent2[!(df_p_sele_ent2$feature2 %in% df_ent1_ent2$feature2),]
 
-ul <- 2
+ul <- 1
 
 # ent1 linked only
 nr1 <- nrow(df_ent1_only)
 if(nr1>0){
-  coord_1 <- data.frame(name=df_ent1_only$feature2, xposi=rep(1*ul,nr1), yposi=seq(nr1))
+  coord_1 <- data.frame(name=df_ent1_only$feature2, xposi=rep(1*ul-1,nr1), yposi=0.5+seq(nr1))
 }else{
   coord_1 <- data.frame(name=character(0), xposi=integer(0), yposi=integer(0))
   # colnames(coord_1) <- c('name', 'xposi', 'yposi')
 }
   
 # ent1
-coord_2 <- data.frame(name=c(df_ent1_ent2$feature1.x[1]), xposi=c(2*ul), yposi=c(1))
+coord_2 <- data.frame(name=c(df_ent1_ent2$feature1.x[1]), xposi=2*ul-1, yposi=c(1))
 
 # ent1 & ent2 linked
 nr3 <- nrow(df_ent1_ent2)
 if(nr3>0){
-  coord_3 <- data.frame(name=df_ent1_ent2$feature2, xposi=rep(3*ul, nr3), yposi=seq(nr3))
+  coord_3 <- data.frame(name=df_ent1_ent2$feature2, xposi=rep(3*ul, nr3), yposi=0.5+seq(nr3))
 }else{
   coord_3 <- data.frame()
   colnames(coord_3) <- c('name', 'xposi', 'yposi')
@@ -71,12 +71,12 @@ if(nr3>0){
   
   
 # ent2
-coord_4 <- data.frame(name=c(df_ent1_ent2$feature1.y[1]), xposi=c(4*ul), yposi=c(1))
+coord_4 <- data.frame(name=c(df_ent1_ent2$feature1.y[1]), xposi=4*ul+1, yposi=c(1))
 
 # ent2 linked only
 nr5 <- nrow(df_ent2_only)
 if(nr5>0){
-  coord_5 <- data.frame(name=df_ent2_only$feature2, xposi=rep(5*ul, nr5), yposi=seq(nr5))
+  coord_5 <- data.frame(name=df_ent2_only$feature2, xposi=rep(5*ul+1, nr5), yposi=0.5+seq(nr5))
 }else{
   coord_5 <- data.frame()
   colnames(coord_5) <- c('name', 'xposi', 'yposi')
@@ -90,11 +90,21 @@ coord_align <- merge(dfnode, coord, by='name', all.x=TRUE, sort=FALSE)
 
 coordmx <- cbind(coord_align$xposi, coord_align$yposi)
 
-plot(g1, layout=coordmx)
+V(g1)$label.cex=0.8
+V(g1)$color <- ifelse(V(g1)$name %in% c('S. Tawaratsumida', 'Sukoya Tawaratsumida'), 'pink', 'lightblue')
+plot.igraph(g1, layout=coordmx, vertex.color=V(g1)$color, vertex.frame.color='lightblue', label.font=20)
+# plot.igraph(g1, layout=coordmx, vertex.color='lightblue', vertex.frame.color='lightblue', label.font=20)
 
 
 
 
+
+
+
+# # visIgraph(g1)
+# vg1 <- toVisNetworkData(g1)
+# visNetwork(nodes=vg1$nodes, edges=vg1$edges)
+# visPhysics(visNetwork(nodes=vg1$nodes, edges=vg1$edges),stabilization =TRUE)
 
 
 
@@ -105,8 +115,6 @@ plot(g1, layout=coordmx)
 # mx1 <- t(rbind(ls1, ls2))
 # 
 # plot(g1, layout=mx1)
-# 
-# 
 # 
 # 
 # 
