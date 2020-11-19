@@ -1,0 +1,83 @@
+[1] ===========================
+$ curl -v "http://localhost:7778/test-post-json" --data 'input={"data":[{"s":2, "e":4}]}'
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1:7778...
+*   Trying 127.0.0.1:7778...
+* Connected to localhost (127.0.0.1) port 7778 (#0)
+> POST /test-post-json HTTP/1.1
+> Host: localhost:7778
+> User-Agent: curl/7.70.0
+> Accept: */*
+> Content-Length: 31
+> Content-Type: application/x-www-form-urlencoded
+>
+} [31 bytes data]
+* upload completely sent off: 31 out of 31 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Date: Thu, 19 Nov 2020 06:38:48 GMT
+< Content-Type: application/json
+< Content-Length: 179
+<
+{ [179 bytes data]
+100   210  100   179  100    31    646    111 --:--:-- --:--:-- --:--:--   758["{\"data1\":[{\"COL1\":2,\"COL2\":12},{\"COL1\":3,\"COL2\":13},{\"COL1\":4,\"COL2\":14}],\"data2\":[{\"COL1\":2,\"COL2\":12},{\"COL1\":3,\"COL2\":13},{\"COL1\":4,\"COL2\":14}]}"]
+* Connection #0 to host localhost left intact
+
+
+
+
+[2] =======================================
+$ curl -v "http://localhost:7778/test-post-json2" --data '{"input":{"data":[{"s":2, "e":4}]}}' -H "content-type: application/json"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1:7778...
+*   Trying 127.0.0.1:7778...
+* Connected to localhost (127.0.0.1) port 7778 (#0)
+> POST /test-post-json2 HTTP/1.1
+> Host: localhost:7778
+> User-Agent: curl/7.70.0
+> Accept: */*
+> content-type: application/json
+> Content-Length: 35
+>
+} [35 bytes data]
+* upload completely sent off: 35 out of 35 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Date: Thu, 19 Nov 2020 06:33:36 GMT
+< Content-Type: application/json
+< Content-Length: 147
+<
+{ [147 bytes data]
+100   182  100   147  100    35    563    134 --:--:-- --:--:-- --:--:--   700{"data1":[{"COL1":2,"COL2":12},{"COL1":3,"COL2":13},{"COL1":4,"COL2":14}],"data2":[{"COL1":2,"COL2":12},{"COL1":3,"COL2":13},{"COL1":4,"COL2":14}]}
+* Connection #0 to host localhost left intact
+
+
+[3] ================
+$ curl -v "http://localhost:7778/test-post-json3" --data '{"data":[{"s":2, "e":4}]}' -H "content-type: application/json"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1:7778...
+*   Trying 127.0.0.1:7778...
+* Connected to localhost (127.0.0.1) port 7778 (#0)
+> POST /test-post-json3 HTTP/1.1
+> Host: localhost:7778
+> User-Agent: curl/7.70.0
+> Accept: */*
+> content-type: application/json
+> Content-Length: 25
+>
+} [25 bytes data]
+* upload completely sent off: 25 out of 25 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Date: Thu, 19 Nov 2020 06:55:33 GMT
+< Content-Type: application/json
+< Content-Length: 147
+<
+{ [147 bytes data]
+100   172  100   147  100    25    554     94 --:--:-- --:--:-- --:--:--   649{"data1":[{"COL1":2,"COL2":12},{"COL1":3,"COL2":13},{"COL1":4,"COL2":14}],"data2":[{"COL1":2,"COL2":12},{"COL1":3,"COL2":13},{"COL1":4,"COL2":14}]}
+* Connection #0 to host localhost left intact
+
+
