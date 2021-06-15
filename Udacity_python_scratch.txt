@@ -1,0 +1,13 @@
+# Identify missing or unknown data values and convert them to NaNs.
+missing_unknown = feat_info_org['missing_or_unknown']
+azdias1 = azdias_org.copy()
+for i in range(len(missing_unknown)):
+    print (i)
+    s1 = missing_unknown[i]
+    if s1!='[]':
+        s2 = str(s1)[1:-1]
+        s3 = s2.split(',')
+        ls1 = [item if (item=='X' or item=='XX' or item=='') else int(item) for item in s3]
+        ls1_float = [float(item) for item in ls1 if type(item)==int]
+        ls2 = ls1+ls1_float
+        azdias1 = azdias1.replace({feat_info_org.iloc[i]['attribute']: ls2}, np.nan)
