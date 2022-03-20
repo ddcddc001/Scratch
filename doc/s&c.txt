@@ -1,0 +1,22 @@
+A two stage has been discussed as a viable approach in the near future. We obviously not intend to strive for sophistication 
+at all costs. If a cheap and simple model fulfills 80 percent of customer needs and could be delivered within a relatively, 
+that’s already a great feat. Moreover, the learnings of building the simple model will fuel the implementation of a more 
+sophisticated model that, hopefully, makes customers 100 percent satisfied.
+
+	Functionalities covered	Deployment / integration implemented 	Business value delivered
+Stage 0 (pre-deployment)	Fundamental framework	Implement Shiny 	Showcase
+Stage 1			
+			Simpliest
+Stage 2			
+			
+
+Constraints
+Unlike in a corporate environment
+A team consists of developers, data engineers and data scientist.
+•	Funding/resource that support such a team
+•	Organization structure that back the running of such a team
+•	Data access
+•	Business understanding/Business alignment, making sure there is alignment on the goal of the project. 
+On top of that, you need to know how the model will be used. What is the expected output? How will the predictions be consumed?
+Lack of cross-language and framework support
+
